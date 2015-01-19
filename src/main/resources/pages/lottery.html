@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>抽奖页面</title>
+
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <script src="../static/js/jquery/1.7.1/jquery.js"
+            th:src="@{/static/js/jquery/1.7.1/jquery.js}"></script>
+    <script src="../static/js/main.js"
+            th:src="@{/static/js/main.js}"></script>
+    <script src="../static/js/canvos.js"
+            th:src="@{/static/js/canvos.js}"></script>
+    <script src="../static/js/UUID.js"
+            th:src="@{/static/js/UUID.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        base_url = /*[[@{/}]]*/'base_url';
+        var json_s_t_r = /*[[${lotteryUserList}]]*/'lotteryUserList';
+        lotteryList = JSON.parse(json_s_t_r);
+        //        console.info(json_s_t_r);
+        //        console.info(JSON.parse(json_s_t_r));
+        //    console.info(base_url);
+        /*]]>*/
+    </script>
+
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        //        lottery.lotteryList = JSON.parse(json_s_t_r);
+        /* var url = base_url+"lottery/getLotteryUserList";
+         $.post(url, function (data) {
+         console.info(data.msg);
+         lottery.lotteryList = data.msg;
+         });*/
+
+        /*]]>*/
+    </script>
+    <script src="../static/js/lottery.js"
+            th:src="@{/static/js/lottery.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/lottery.css}"/>
+    <script type="text/javascript">
+        $(function () {
+        });
+    </script>
+    <style type="text/css">
+
+    </style>
+
+
+</head>
+<body>
+<input type="hidden" id="baseURL" th:value="@{/}"/>
+
+<div id="wrap" class="wrapbg">
+    <div class="whole">
+        <div id="title" class="clearfix">
+            <a href="">
+                    <span class="logo-small left">
+                        <img th:src="@{/static/images/logo-b.png}"/>
+                    </span>
+            </a>
+
+            <div class="scroll-head left">
+                <div class="clearfix">
+                    <div class="scrollbox left">
+                        <ul class="word-list wordList">
+                            <li id="roundName" class="themeBox"
+                                style="line-height: 86px; font-size: 46px; display: list-item;">特等奖
+                            </li>
+                            <li class="themeBox" style="display: none;" th:text="@{'微信号：' }"><br/>关注后发送内容即可上墙</li>
+                        </ul>
+                        <!-- <ul class="word-list checkinWordList" style="visibility:hidden;margin-top: -96px;">
+                             <li style="display: none;" class="themeBox">微信大屏幕官方演示页面<br/>点击下方对应功能按钮可查看功能演示</li>
+                             <li class="themeBox" style="display: list-item;">关注微信号：hudongdapingmu<br/>发送含有“签到”两字的内容即可签到
+                             </li>
+                         </ul>-->
+                    </div>
+                    <div class="num-t left">
+                        <!--<p><em class="messageTotal" th:text="${messageCount}"></em><span>条信息</span></p>-->
+                    </div>
+                </div>
+            </div>
+            <span class="reserved right showIntroBtn">
+                <img th:src="@{/static/images/erweima.png}" style="max-width:126px;max-height:96px;"/> </span>
+        </div>
+        <!--<form id="showForm" method="post" action="" commandName="wxdpShowDTO">
+            <input id="activeId" name="activeId" type="hidden" th:value="${activeId}"/>
+            <input id="activeName" name="activeName" type="hidden" th:value="${activeName}"/>
+        </form>-->
+        <div class="container"></div>
+        <div id="footer" class="footer clearfix">
+            <!--<div class="left-bottom left">
+                <span class="logo-b logo-sun"></span>
+            </div>-->
+            <div class="prodres-box">
+                <canvas id="cirProgress" width="50" height="50"></canvas>
+            </div>
+        </div>
+
+        <div class="lottery-body">
+            <div class="lottery-inner lottery-inner-bg">
+                <div class="inner-content clearfix">
+                    <div class="prize-box right">
+                        <span class="props props-color"></span>
+
+                        <div class="outer-prize">
+                            <div class="wrap-prize">
+                                <div class="list-top clearfix">
+                                    <p class="pro-num right">获奖人数<em class="winUserNum">0</em></p>
+                                    <span>获奖名单</span>
+                                </div>
+                                <div class="list-box">
+                                    <p class="list-tit"><span>获奖序号</span> <span>微信昵称</span></p>
+
+                                    <div class="priname-box">
+                                        <ul class="prize-list winUserList">
+                                            <!--  <li class="clearfix" data-id="803">
+                                                 <p class="head-part left">
+                                                     <span class="num-p winUserRankNum">
+                                                         <em>1</em>
+                                                     </span>
+                                                     <a href="javascript:;">
+                                                         <img width="50" height="50" src="http://s8.wxscreen.com/static/upload/slave2_store2/2014/02/23/20140223142427000000_1_36696_1176.png" alt="">
+                                                     </a>
+                                                 </p>
+                                                 <a href="javascript:;" class="nick-name left winUserName">就这样吧！</a>
+                                                 <a href="javascript:void(0);" class="del delWinUser" data-id="803">×</a>
+                                             </li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--end .list-box-->
+                                <div class="und-btn">
+                                    <a data-disabled="no" href="javascript:void(0);" onclick="lottery.delALLPrize();"
+                                       class="resetLotteryBtn"><span style="">重新抽奖</span>
+                                        <img style="display: none;" th:src="@{/static/images/loading.gif}"/></a>
+                                </div>
+                            </div>
+                            <!--end .wrap-prize-->
+                        </div>
+                        <!--end .outer-prize-->
+                    </div>
+                    <div class="lottery-box">
+                        <div class="lottery-box-top">
+                            <span class="lottery-wt">现场抽奖</span>
+
+                            <p class="lottery-w">
+                                <span>参加抽奖人数</span>
+                                <em id="lotteryNum" class="join-num lotteryUserNum"
+                                    th:text="${lotteryUserList_size}"></em>
+                            </p>
+                        </div>
+                        <div class="rock-box">
+                                <span class="rock-head">
+                                    <img class="lotteryImg" width="178" height="178" alt=""
+                                         th:src="@{/static/images/lottery-default.jpg}"
+                                         data-default_src="@{/static/images/lottery-default.jpg}"/>
+                                </span>
+                            <span class="rock-name lotteryName">... ...</span>
+                        </div>
+                        <div class="btn-clear clearfix">
+                            <div id="lotteryNumBox" class="choose-num ">
+                                <span>一次抽取</span>
+                                <select id="lotteryNumSel" name="">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="5">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <span>人</span>
+                            </div>
+                            <p class="btn-rock right">
+                                <a class="btn-start startLotteryBtn" href="javascript:void(0);"
+                                   onclick="go_lottery(this);">
+                                    <span>开始抽奖</span>
+                                    <img th:src="@{/static/images/loading.gif}" style="display:none;"/>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

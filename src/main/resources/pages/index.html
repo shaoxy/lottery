@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html type="Layout" description="系统管理"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>宝贝去哪儿</title>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" type="text/css" href="../static/css/common.css"
+	th:href="@{/static/css/common.css}" />
+<link rel="stylesheet" type="text/css" href="../static/css/layout.css"
+	th:href="@{/static/css/layout.css}" />
+<link rel="stylesheet" type="text/css" href="../static/css/main.css"
+	th:href="@{/static/css/main.css}" />
+<link rel="stylesheet" type="text/css" href="../static/css/aui.css"
+	th:href="@{/static/css/aui.css}" />
+<link rel="stylesheet" type="text/css"
+	href="../static/fontawesome/css/font-awesome.css"
+	th:href="@{/static/fontawesome/css/font-awesome.css}" />
+</head>
+<body>
+	<!-- 头部 start -->
+	<div th:fragment="topCommonFragment" id="topCommonFragment_id">
+		<input type="hidden" id="contextPath" th:value="@{/}" />
+
+		<!--[if lt IE 8]>
+	<link rel="stylesheet" type="text/css"  href="/cs_back/static/fontawesome/css/font-awesome-ie7.css">
+    <![endif]-->
+		<script th:src="@{/static/js/core/jquery/jquery-1.8.3.js}"></script>
+		<script th:src="@{/static/js/core/common/AUI.js}"></script>
+		<!-- <script src="../static/js/AUI.select.js" th:src="@{/static/js/AUI.select.js}"></script>
+	<script src="../static/js/AUI.tabs.js" th:src="@{/static/js/AUI.tabs.js}"></script>
+	<script src="../static/js/AUI.choose.js" th:src="@{/static/js/AUI.choose.js}"></script> -->
+		<div th:include="fragment/common :: jbox"></div>
+		<!--顶部logo、标题、文字-->
+		<div class="header-outer">
+			<div id="header">
+				<img style="width: 100%; height: 100%; z-index: -1;"
+					th:src="@{/static/images/topbar2.png}" />
+				<div style="position: absolute; top: 0; left: 0; width: 100%">
+					<div id="logo"></div>
+					<div class="sys-name">
+						<p>宝贝去哪儿</p>
+					</div>
+					<div class="welcome">
+						<div class="new-login-info">
+							<span>欢迎使用宝贝去哪儿管理系统!</span> <span><a
+								th:href="@{'/'}+'menumap'">网站地图</a></span> <span>|</span> <span
+								class="close"><a th:href="@{'/'}+logout">退出</a></span>
+						</div>
+						<div class="new-role">
+							<div class="end" id="new-role-end"></div>
+							<div class="first">
+								<a id="passwordmodify" th:attr="redirect=@{'/passwordmodify'}">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="new-r-nav-hover" id="change-new-nav">
+			<div class="role-info-hover">
+				<a class="r-i-hover-text" href="#"> <b th:text="系统管理人员"></b><br />
+					<span></span>
+				</a>
+			</div>
+		</div>
+
+		<script src="../static/js/cs/layout.js"
+			th:src="@{/static/js/cs/layout.js}"></script>
+		<script type="text/javascript">
+			/* <![CDATA[ */
+			function toLoginPage(str1, str2, str3) {
+				window.location = $("#contextPath").val()
+						+ 'switchJob?staffid=' + str1 + '&staffFlag=' + str2
+						+ '&jobCode=' + str3;
+			}
+			/* ]]> */
+		</script>
+	</div>
+	<div class="main_body">
+		<div class="left_menu">
+			<!-- <ul class="nav_left">
+				<li navSub="index"><a th:attr="redirect=@{'/'}+index"
+					class="select"><i class="fa fa-road"></i>首页</a><i></i></li>
+				<li><a th:attr="redirect=@{'/CampaignManage/toList'}"><i
+						class="fa fa-cloud-download"></i>活动管理</a><i></i></li>
+				<li><a th:attr="redirect=@{'/Travels/toTravelList'}"><i
+						class="fa fa-edit (alias)"></i>游记管理</a><i></i></li>
+				<li><a th:attr="redirect=@{'/circle/toCircleList'}"><i
+						class="fa fa-edit (alias)"></i>社区帖子管理</a><i></i></li>
+				<li><a th:attr="redirect=@{'/review/toReviewList'}"><i
+						class="fa fa-edit (alias)"></i>社区评论管理</a><i></i></li>
+			</ul> -->
+			<ul class="nav_left">
+				<p th:each="menuList:${#httpSession.getAttribute('menuList')}">
+				<p th:each="subMenu:${menuList.subMenu}">
+				<p th:if="${subMenu.menuText} == '活动管理'">
+				<li><a th:attr="redirect=@{${subMenu.modName}}" class="select">
+						<i class="fa fa-edit (alias)"></i> <i
+						th:text="${subMenu.menuText}"></i>
+				</a></li>
+				</p>
+				<p th:if="${subMenu.menuText} != '活动管理'">
+				<li><a th:attr="redirect=@{${subMenu.modName}}"> <i
+						class="fa fa-edit (alias)"></i> <i
+						th:text="${subMenu.menuText}"></i>
+				</a></li>
+				</p>
+				</p>
+				</p>
+			</ul>
+			<script type="text/javascript"
+				th:src="@{/static/js/cs/index/index.js}"></script>
+			<link rel="stylesheet" type="text/css"
+				href="../static/css/dialog/dialog.css"
+				th:href="@{/static/css/dialog/dialog.css}" />
+			<script src="../static/js/core/dialog/dialog.js"
+				th:src="@{/static/js/core/dialog/dialog.js}"></script>
+			<script src="../static/js/core/dialog/jquery.ui.mouseinteraction.js"
+				th:src="@{/static/js/core/dialog/jquery.ui.mouseinteraction.js}"></script>
+
+		</div>
+		<div class="right_body">
+			<iframe class="main_iframe" th:attr="src=@{/CampaignManage/toList}"
+				frameborder="no" border="no"></iframe>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+	<div>
+		<p class="cpr">Copyright© 宝贝去哪儿</p>
+	</div>
+
+	<script type="text/javascript">
+		$(function() {
+			$("#passwordmodify").click(function() {
+
+				$('.main_iframe')[0].src = "passwordmodify";
+			});
+
+		});
+	</script>
+</body>
+
+</html>

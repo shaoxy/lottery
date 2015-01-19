@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.lottery.business.dao.persistence.WxUserPondMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.lottery.business.domain.entity.WxUserPond" >
+    <id column="USER_POND_ID" property="userPondId" jdbcType="VARCHAR" />
+    <result column="OPEN_ID" property="openId" jdbcType="VARCHAR" />
+    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="SMALLINT" />
+    <result column="HEAD_IMG_URL" property="headImgUrl" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="SMALLINT" />
+    <result column="SUBSCRIBE_TIME" property="subscribeTime" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_POND_ID, OPEN_ID, NICK_NAME, SEX, HEAD_IMG_URL, STATE, SUBSCRIBE_TIME, CREATE_TIME, 
+    UPDATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.lottery.core.dao.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_user_pond
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wx_user_pond
+    where USER_POND_ID = #{userPondId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wx_user_pond
+    where USER_POND_ID = #{userPondId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ai.lottery.core.dao.Criteria" >
+    delete from wx_user_pond
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ai.lottery.business.domain.entity.WxUserPond" >
+    insert into wx_user_pond (USER_POND_ID, OPEN_ID, NICK_NAME, 
+      SEX, HEAD_IMG_URL, STATE, 
+      SUBSCRIBE_TIME, CREATE_TIME, UPDATE_TIME
+      )
+    values (#{userPondId,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=SMALLINT}, #{headImgUrl,jdbcType=VARCHAR}, #{state,jdbcType=SMALLINT}, 
+      #{subscribeTime,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.lottery.business.domain.entity.WxUserPond" >
+    insert into wx_user_pond
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userPondId != null" >
+        USER_POND_ID,
+      </if>
+      <if test="openId != null" >
+        OPEN_ID,
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="headImgUrl != null" >
+        HEAD_IMG_URL,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="subscribeTime != null" >
+        SUBSCRIBE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userPondId != null" >
+        #{userPondId,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="headImgUrl != null" >
+        #{headImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=SMALLINT},
+      </if>
+      <if test="subscribeTime != null" >
+        #{subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ai.lottery.core.dao.Criteria" resultType="java.lang.Integer" >
+    select count(*) from wx_user_pond
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wx_user_pond
+    <set >
+      <if test="record.userPondId != null" >
+        USER_POND_ID = #{record.userPondId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openId != null" >
+        OPEN_ID = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickName != null" >
+        NICK_NAME = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        SEX = #{record.sex,jdbcType=SMALLINT},
+      </if>
+      <if test="record.headImgUrl != null" >
+        HEAD_IMG_URL = #{record.headImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=SMALLINT},
+      </if>
+      <if test="record.subscribeTime != null" >
+        SUBSCRIBE_TIME = #{record.subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wx_user_pond
+    set USER_POND_ID = #{record.userPondId,jdbcType=VARCHAR},
+      OPEN_ID = #{record.openId,jdbcType=VARCHAR},
+      NICK_NAME = #{record.nickName,jdbcType=VARCHAR},
+      SEX = #{record.sex,jdbcType=SMALLINT},
+      HEAD_IMG_URL = #{record.headImgUrl,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=SMALLINT},
+      SUBSCRIBE_TIME = #{record.subscribeTime,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.lottery.business.domain.entity.WxUserPond" >
+    update wx_user_pond
+    <set >
+      <if test="openId != null" >
+        OPEN_ID = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="headImgUrl != null" >
+        HEAD_IMG_URL = #{headImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=SMALLINT},
+      </if>
+      <if test="subscribeTime != null" >
+        SUBSCRIBE_TIME = #{subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_POND_ID = #{userPondId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.lottery.business.domain.entity.WxUserPond" >
+    update wx_user_pond
+    set OPEN_ID = #{openId,jdbcType=VARCHAR},
+      NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=SMALLINT},
+      HEAD_IMG_URL = #{headImgUrl,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=SMALLINT},
+      SUBSCRIBE_TIME = #{subscribeTime,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where USER_POND_ID = #{userPondId,jdbcType=VARCHAR}
+  </update>
+</mapper>

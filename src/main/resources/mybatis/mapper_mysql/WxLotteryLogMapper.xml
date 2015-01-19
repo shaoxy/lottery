@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.lottery.business.dao.persistence.WxLotteryLogMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.lottery.business.domain.entity.WxLotteryLog" >
+    <id column="LOTTERY_LOG_ID" property="lotteryLogId" jdbcType="VARCHAR" />
+    <result column="OPEN_ID" property="openId" jdbcType="VARCHAR" />
+    <result column="LOTTERY_ROUND" property="lotteryRound" jdbcType="VARCHAR" />
+    <result column="HANDLE_TYPE" property="handleType" jdbcType="SMALLINT" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LOTTERY_LOG_ID, OPEN_ID, LOTTERY_ROUND, HANDLE_TYPE, CREATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ai.lottery.core.dao.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_lottery_log
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wx_lottery_log
+    where LOTTERY_LOG_ID = #{lotteryLogId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wx_lottery_log
+    where LOTTERY_LOG_ID = #{lotteryLogId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ai.lottery.core.dao.Criteria" >
+    delete from wx_lottery_log
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ai.lottery.business.domain.entity.WxLotteryLog" >
+    insert into wx_lottery_log (LOTTERY_LOG_ID, OPEN_ID, LOTTERY_ROUND, 
+      HANDLE_TYPE, CREATE_TIME)
+    values (#{lotteryLogId,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{lotteryRound,jdbcType=VARCHAR}, 
+      #{handleType,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.lottery.business.domain.entity.WxLotteryLog" >
+    insert into wx_lottery_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lotteryLogId != null" >
+        LOTTERY_LOG_ID,
+      </if>
+      <if test="openId != null" >
+        OPEN_ID,
+      </if>
+      <if test="lotteryRound != null" >
+        LOTTERY_ROUND,
+      </if>
+      <if test="handleType != null" >
+        HANDLE_TYPE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lotteryLogId != null" >
+        #{lotteryLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryRound != null" >
+        #{lotteryRound,jdbcType=VARCHAR},
+      </if>
+      <if test="handleType != null" >
+        #{handleType,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ai.lottery.core.dao.Criteria" resultType="java.lang.Integer" >
+    select count(*) from wx_lottery_log
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wx_lottery_log
+    <set >
+      <if test="record.lotteryLogId != null" >
+        LOTTERY_LOG_ID = #{record.lotteryLogId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openId != null" >
+        OPEN_ID = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lotteryRound != null" >
+        LOTTERY_ROUND = #{record.lotteryRound,jdbcType=VARCHAR},
+      </if>
+      <if test="record.handleType != null" >
+        HANDLE_TYPE = #{record.handleType,jdbcType=SMALLINT},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wx_lottery_log
+    set LOTTERY_LOG_ID = #{record.lotteryLogId,jdbcType=VARCHAR},
+      OPEN_ID = #{record.openId,jdbcType=VARCHAR},
+      LOTTERY_ROUND = #{record.lotteryRound,jdbcType=VARCHAR},
+      HANDLE_TYPE = #{record.handleType,jdbcType=SMALLINT},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.lottery.business.domain.entity.WxLotteryLog" >
+    update wx_lottery_log
+    <set >
+      <if test="openId != null" >
+        OPEN_ID = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="lotteryRound != null" >
+        LOTTERY_ROUND = #{lotteryRound,jdbcType=VARCHAR},
+      </if>
+      <if test="handleType != null" >
+        HANDLE_TYPE = #{handleType,jdbcType=SMALLINT},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where LOTTERY_LOG_ID = #{lotteryLogId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.lottery.business.domain.entity.WxLotteryLog" >
+    update wx_lottery_log
+    set OPEN_ID = #{openId,jdbcType=VARCHAR},
+      LOTTERY_ROUND = #{lotteryRound,jdbcType=VARCHAR},
+      HANDLE_TYPE = #{handleType,jdbcType=SMALLINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where LOTTERY_LOG_ID = #{lotteryLogId,jdbcType=VARCHAR}
+  </update>
+</mapper>
